@@ -1,0 +1,1 @@
+coins = ['bitcoin', 'ethereum', 'tether', 'binancecoin', 'usd-coin', 'ripple', 'cardano', 'matic-network', 'dogecoin', 'staked-ether', 'binance-usd', 'binance-usd', 'solana', 'polkadot', 'shiba-inu', 'dai', 'tron', 'litecoin', 'avalanche-2', 'uniswap', 'wrapped-bitcoin', 'hedera-hashgraph']
