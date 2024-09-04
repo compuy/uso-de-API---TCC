@@ -4,7 +4,7 @@ import pandas as pd
 from datetime import datetime
 from time import sleep
 
-json_file = "project-to-web-scraping-4d736d549dea.json"
+json_file = "project-to-web-scraping-e782cbd91f6b.json"
 
 
 def login(json_file, scopes):
@@ -15,14 +15,14 @@ def login(json_file, scopes):
   return google_client
 
 
-def write_coins_to_spreadsheet(coins, json_file=json_file):
+def write_coins_to_spreadsheet(coins, table, json_file=json_file):
   scopes = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive"
   ]
   try:
     google_client = login(json_file, scopes)
-    worksheet = google_client.open('tcc-api').worksheet('table1')
+    worksheet = google_client.open('tcc-api').worksheet(table)
 
     # Create a DataFrame with the data
     data = {}
@@ -37,7 +37,7 @@ def write_coins_to_spreadsheet(coins, json_file=json_file):
         data[coin['coin']][item['date']] = str(
           coin['value'])  # convert float to string
       print(f"Escrevendo a data {item['date']} na planilha...")
-      sleep(1)
+      sleep(10)
     df = pd.DataFrame.from_dict(data, orient='columns')
     df = df.where(pd.notnull(df), None)  # replace NaN with None
     df.index.name = 'date'

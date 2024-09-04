@@ -9,8 +9,7 @@ def date_coins(initial_date, final_date):
   dates = []
   month = initial_date[0]
   year = initial_date[1]
-  while (year < final_date[1]) or (year == final_date[1]
-                                   and month <= final_date[0]):
+  while (year < final_date[1]) or (year == final_date[1] and month <= final_date[0]):
     day = calendar.monthrange(year, month)[1]
     dates.append(datetime.date(year, month, day).strftime('%d-%m-%Y'))
     if month < 12:
@@ -34,18 +33,10 @@ def search(dates):
         value = requests.get(url).json()['market_data']['current_price']['brl']
         crypto = {'coin': coin_crypto, 'value': value}
       except:
-        x = 0
-        while (x <= 5) or (crypto['value'] == None):
-          try:
-            url = f"https://api.coingecko.com/api/v3/coins/{coin_crypto}/history?date={date}&localization=pt"
-            value = requests.get(url).json()['market_data']['current_price']['brl']
-            crypto = {'coin': coin_crypto, 'value': value}
-          except:
-            crypto = {'coin': coin_crypto, 'value': None}
-            x +=1
-            sleep(5+x)
+        crypto = {'coin': coin_crypto, 'value': None}
       cryptos.append(crypto)
-      sleep(1)
+      sleep(15)
     coin_final = {'date': date, 'cryptos': cryptos}
     coins_final.append(coin_final)
   return coins_final
+
