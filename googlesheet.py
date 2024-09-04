@@ -35,20 +35,20 @@ def write_coins_to_spreadsheet(coins, table, json_file=json_file):
         if not isinstance(data[coin['coin']], dict):
           data[coin['coin']] = {}
         data[coin['coin']][item['date']] = str(
-          coin['value'])  # convert float to string
+          coin['value']) 
       print(f"Escrevendo a data {item['date']} na planilha...")
       sleep(10)
     df = pd.DataFrame.from_dict(data, orient='columns')
-    df = df.where(pd.notnull(df), None)  # replace NaN with None
+    df = df.where(pd.notnull(df), None)
     df.index.name = 'date'
     df = df.reset_index().rename(columns={'index': 'date'})
 
     # Write the DataFrame to the worksheet
     worksheet.clear()
-    header = df.columns.values.tolist()  # extract header
-    worksheet.insert_row(header, 1)  # insert header as first row
-    df_values = df.values.tolist()  # extract data as a list of lists
-    worksheet.insert_rows(df_values, 2)  # insert data starting from second row
+    header = df.columns.values.tolist()
+    worksheet.insert_row(header, 1)
+    df_values = df.values.tolist()
+    worksheet.insert_rows(df_values, 2)
 
     return "Planilha atualizada com sucesso."
   except Exception as e:
